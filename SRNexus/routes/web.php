@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\InfluxdbConnectionController;
+use App\Http\Controllers\InfluxTestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// routes/web.php
+
+Route::resource('influxdb_connections', InfluxdbConnectionController::class);
+Route::get('/test-influx', [InfluxTestController::class, 'testConnection']);
+Route::get('/write-influx', [InfluxTestController::class, 'writeData']);
 
 Route::get('/', function () {
     return view('welcome');

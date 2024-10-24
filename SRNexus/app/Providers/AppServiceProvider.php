@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //registrar servicio para uso de influx
+        $this->app->singleton(\App\Services\InfluxdbService::class, function ($app) {
+            return new \App\Services\InfluxdbService();
+        });
     }
 
     /**
