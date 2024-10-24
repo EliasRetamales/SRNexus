@@ -26,7 +26,7 @@ class Client extends Model
      *
      * @var string
      */
-    protected $table = 'clients'; // No es necesario si sigue la convención
+    // protected $table = 'clients'; // No es necesario si sigue la convención
 
     /**
      * Indica si el modelo debe tener marcas de tiempo.
