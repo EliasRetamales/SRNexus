@@ -2,9 +2,10 @@
 
 namespace App\Console;
 
-use App\Console\Commands\RollbackRolesAndPermissions;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\RollbackRolesAndPermissions;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,14 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         RollbackRolesAndPermissions::class,
+    ];
+
+    protected $middlewareGroups = [
+        'api' => [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
     ];
 
     /**

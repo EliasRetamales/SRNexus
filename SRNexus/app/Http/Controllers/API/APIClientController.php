@@ -6,16 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class APIClientController extends Controller
 {
-
+    /**
+     * Constructor para aplicar middleware de permisos.
+     */
     public function __construct()
     {
-        $this->middleware('permission:manage clients')->only(['store', 'update', 'destroy']);
-        $this->middleware('permission:view clients')->only(['index', 'show']);
+        $this->middleware('permission:create-client')->only(['store']);
+        $this->middleware('permission:read-client')->only(['index', 'show']);
+        $this->middleware('permission:update-client')->only(['update']);
+        $this->middleware('permission:delete-client')->only(['destroy']);
     }
-
 
     /**
      * Display a listing of the clients.
@@ -34,8 +38,9 @@ class APIClientController extends Controller
         // Validar la solicitud
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients,email',
-            // Agrega otras validaciones según sea necesario
+            'activity' => 'required|string|max:255',
+            'rut' => 'required|string|max:50|unique:clients,rut',
+            'enable' => 'required|boolean',
         ]);
 
         // Crear el cliente
@@ -60,8 +65,9 @@ class APIClientController extends Controller
         // Validar la solicitud
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|email|unique:clients,email,' . $client->id,
-            // Agrega otras validaciones según sea necesario
+            'activity' => 'sometimes|required|string|max:255',
+            'rut' => 'sometimes|required|string|max:50|unique:clients,rut,' . $client->id,
+            'enable' => 'sometimes|required|boolean',
         ]);
 
         // Actualizar el cliente
