@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InfluxdbConnectionController;
 use App\Http\Controllers\InfluxTestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -11,8 +12,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Rutas protegidas por autenticación y rol 'admin'
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('users', UserController::class);
+});
+
 // Rutas de autenticación y verificación de correo electrónico
 Route::middleware('auth')->group(function () {
+
+
+
     // Ruta para mostrar la notificación de verificación
     Route::get('/email/verify', function () {
         return view('auth.verify-email');

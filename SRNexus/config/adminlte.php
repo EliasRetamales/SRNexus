@@ -392,6 +392,22 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],
+
+        // Elementos comunes para todos los usuarios
+        [
+            'text' => 'Dashboard',
+            'url'  => 'dashboard',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+        ],
+
+        // Elemento de menú solo para administradores
+        [
+            'text' => 'Gestión de Usuarios',
+            'url'  => 'users',
+            'icon' => 'fas fa-fw fa-users',
+            'role'  => 'admin', // Usar permiso o rol
+
+        ],
     ],
 
     /*
