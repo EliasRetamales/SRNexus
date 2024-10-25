@@ -35,4 +35,25 @@ class RolesAndPermissionsSeeder extends Seeder
             }
         }
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        // Eliminar roles
+        Role::where('name', 'admin')->first()->delete();
+        Role::where('name', 'user')->first()->delete();
+
+        // Eliminar permisos
+        $models = ['Alerta', 'Empresa', 'Proyecto', 'Registro', 'Sensor', 'TipoSensor', 'User'];
+        foreach ($models as $model) {
+            Permission::where('name', "create-$model")->delete();
+            Permission::where('name', "read-$model")->delete();
+            Permission::where('name', "update-$model")->delete();
+            Permission::where('name', "delete-$model")->delete();
+        }
+    }
 }
