@@ -13,8 +13,8 @@ class CreateSafeLimitsTable extends Migration
     {
         Schema::create('safe_limits', function (Blueprint $table) {
             $table->id();
-            $table->float('max_value');
-            $table->float('min_value');
+            $table->float('max_value')->nullable();
+            $table->float('min_value')->nullable();
             $table->boolean('enable')->default(true);
             $table->timestamps(); // created_at y updated_at
         });
