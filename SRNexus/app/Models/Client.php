@@ -50,12 +50,12 @@ class Client extends Model
     // protected $keyType = 'int'; // Por defecto es 'int'
 
     /**
-     * Relación con el modelo User.
+     * Relación con el modelo Project.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function projects()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Project::class);
     }
 }

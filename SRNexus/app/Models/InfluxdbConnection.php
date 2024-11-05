@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InfluxdbConnection extends Model
 {
     protected $fillable = [
-        'client_id',
+        'project_id',
         'name',
         'url',
         'token',
@@ -32,10 +32,12 @@ class InfluxdbConnection extends Model
     }
 
     /**
-     * Relación con el modelo Client
+     * Relación con el modelo Project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function client()
+    public function project()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Project::class);
     }
 }
