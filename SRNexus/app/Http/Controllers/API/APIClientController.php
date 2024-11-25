@@ -7,6 +7,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Spatie\Permission\Models\Permission;
 
 class APIClientController extends Controller
 {
@@ -15,10 +16,10 @@ class APIClientController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:create-client')->only(['store']);
-        $this->middleware('permission:read-client')->only(['index', 'show']);
-        $this->middleware('permission:update-client')->only(['update']);
-        $this->middleware('permission:delete-client')->only(['destroy']);
+        $this->middleware('permission:create-Client')->only(['store']);
+        $this->middleware('permission:read-Client')->only(['index', 'show']);
+        $this->middleware('permission:update-Client')->only(['update']);
+        $this->middleware('permission:delete-Client')->only(['destroy']);
     }
 
     /**
@@ -26,8 +27,14 @@ class APIClientController extends Controller
      */
     public function index()
     {
+        // $permission = Permission::where('name', 'read-Client')->first();
+        // return [$permission, auth()->user(),auth()->user()->permissions->contains($permission),auth()->user()->permissions];
+        // if (!$permission || !auth()->user()->permissions->contains($permission)) {
+        //     return response()->json(['message' => 'Forbidden'], 403);
+        // }
+
         $clients = Client::all();
-        return response()->json($clients, Response::HTTP_OK);
+        return response()->json($clients, 200);
     }
 
     /**

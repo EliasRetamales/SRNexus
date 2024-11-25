@@ -25,20 +25,54 @@ class APIAuthController extends Controller
         // Verificar las credenciales
         $user = \App\Models\User::where('email', $request->email)->first();
 
-        if (!$user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Las credenciales proporcionadas son incorrectas.'],
             ]);
         }
 
-        // Crear un token con permisos de lectura
-        $token = $user->createToken('API Token', ['read-clients'])->plainTextToken;
+        //Auth::loginUsingId($user->id);
+
+        // Obtener la lista de permisos del usuario
+        $permissions = $user->getAllPermissions()->pluck('name')->toArray();
+
+        // Crear un token con todos los permisos del usuario
+        $token = $user->createToken('API Token', $permissions)->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'permissions' => $permissions, // Devolver los permisos para referencia
         ], 200);
     }
+
+    // public function login(Request $request)
+    // {
+    //     // Validar la solicitud
+    //     $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     // Verificar las credenciales
+    //     $user = \App\Models\User::where('email', $request->email)->first();
+
+    //     if (!$user || ! Hash::check($request->password, $user->password)) {
+    //         throw ValidationException::withMessages([
+    //             'email' => ['Las credenciales proporcionadas son incorrectas.'],
+    //         ]);
+    //     }
+
+    //     Auth::loginUsingId($user->id);
+
+    //     // Crear un token con permisos de lectura
+    //     $token = $user->createToken('API Token', ['read-client'])->plainTextToken;
+
+    //     return response()->json([
+    //         'access_token' => $token,
+    //         'token_type' => 'Bearer',
+    //     ], 200);
+    // }
 
     /**
      * Cerrar sesión y revocar el token actual.

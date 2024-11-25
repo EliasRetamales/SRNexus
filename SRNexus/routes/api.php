@@ -7,7 +7,7 @@ use App\Http\Controllers\API\APIAuthController;
 use App\Http\Controllers\API\APIClientController;
 use App\Http\Controllers\API\APIProjectController;
 use App\Http\Controllers\API\APIRegisterController;
-use App\Http\Controllers\API\APISafeLimiteController;
+use App\Http\Controllers\API\APISafeLimitController;
 use App\Http\Controllers\API\APISensorController;
 
 /*
@@ -21,7 +21,8 @@ use App\Http\Controllers\API\APISensorController;
 */
 
 // Ruta de inicio de sesión
-Route::post('/login', [APIAuthController::class, 'login']);
+Route::post('/v1/login', [APIAuthController::class, 'login']);
+// Route::apiResource('clients', APIClientController::class);
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -35,7 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('projects', APIProjectController::class);
 
     // Rutas para los SafeLimites
-    Route::apiResource('safe-limites', APISafeLimiteController::class);
+    Route::apiResource('safe-limites', APISafeLimitController::class);
 
     // Rutas para los Sensors
     Route::apiResource('sensors', APISensorController::class);

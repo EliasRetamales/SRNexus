@@ -27,6 +27,11 @@ class Kernel extends ConsoleKernel
         ],
     ];
 
+    protected $routeMiddleware = [
+        // Otros middlewares...
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *

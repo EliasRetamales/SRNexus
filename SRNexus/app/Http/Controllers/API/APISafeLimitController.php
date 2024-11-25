@@ -7,7 +7,7 @@ use App\Models\SafeLimit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class APISafeLimiteController extends Controller
+class APISafeLimitController extends Controller
 {
     /**
      * Constructor para aplicar middleware de permisos.
@@ -21,7 +21,7 @@ class APISafeLimiteController extends Controller
     }
 
     /**
-     * Display a listing of the SafeLimites.
+     * Display a listing of the SafeLimits.
      */
     public function index()
     {
