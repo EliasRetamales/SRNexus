@@ -27,12 +27,6 @@ class APIClientController extends Controller
      */
     public function index()
     {
-        // $permission = Permission::where('name', 'read-Client')->first();
-        // return [$permission, auth()->user(),auth()->user()->permissions->contains($permission),auth()->user()->permissions];
-        // if (!$permission || !auth()->user()->permissions->contains($permission)) {
-        //     return response()->json(['message' => 'Forbidden'], 403);
-        // }
-
         $clients = Client::all();
         return response()->json($clients, 200);
     }
