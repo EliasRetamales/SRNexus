@@ -1,41 +1,47 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalle del Usuario')
+@section('title', 'Detalle del Cliente')
 
 @section('content_header')
-    <h1>Detalle del Usuario</h1>
+    <h1>Detalle del Cliente</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Información del Usuario</h3>
+            <h3 class="card-title">Información del Cliente</h3>
             <div class="card-tools">
-                <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm">
+                <a href="{{ route('clients.index') }}" class="btn btn-secondary btn-sm">
                     <i class="fa fa-arrow-left"></i> Volver a la Lista
                 </a>
-                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary btn-sm">
                     <i class="fa fa-edit"></i> Editar
                 </a>
             </div>
         </div>
         <div class="card-body">
             <dl class="row">
-                <dt class="col-sm-4">Nombre:</dt>
-                <dd class="col-sm-8">{{ $user->name }}</dd>
+                <dt class="col-sm-4">Nombre del Cliente:</dt>
+                <dd class="col-sm-8">{{ $client->name }}</dd>
 
-                <dt class="col-sm-4">Email:</dt>
-                <dd class="col-sm-8">{{ $user->email }}</dd>
+                <dt class="col-sm-4">Actividad:</dt>
+                <dd class="col-sm-8">{{ $client->activity }}</dd>
 
-                <dt class="col-sm-4">Rol:</dt>
-                <dd class="col-sm-8">{{ $user->roles->pluck('name')->join(', ') }}</dd>
+                <dt class="col-sm-4">RUT:</dt>
+                <dd class="col-sm-8">{{ $client->rut }}</dd>
 
                 <dt class="col-sm-4">Estado:</dt>
                 <dd class="col-sm-8">
-                    <span class="badge {{ $user->is_active ? 'badge-success' : 'badge-danger' }}">
-                        {{ $user->is_active ? 'Activo' : 'Inactivo' }}
+                    <span class="badge {{ $client->enable ? 'badge-success' : 'badge-danger' }}">
+                        {{ $client->enable ? 'Activo' : 'Inactivo' }}
                     </span>
                 </dd>
+
+                <dt class="col-sm-4">Fecha de Creación:</dt>
+                <dd class="col-sm-8">{{ $client->created_at->format('d/m/Y H:i') }}</dd>
+
+                <dt class="col-sm-4">Última Actualización:</dt>
+                <dd class="col-sm-8">{{ $client->updated_at->format('d/m/Y H:i') }}</dd>
             </dl>
         </div>
     </div>

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Usuario')
+@section('title', 'Editar Cliente')
 
 @section('content_header')
-    <h1>Editar Usuario</h1>
+    <h1>Editar Cliente</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="card-header">
             <h3 class="card-title">Formulario de Edición</h3>
             <div class="card-tools">
-                <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm">
+                <a href="{{ route('clients.index') }}" class="btn btn-secondary btn-sm">
                     <i class="fa fa-arrow-left"></i> Volver a la Lista
                 </a>
             </div>
@@ -26,36 +26,30 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('users.update', $user->id) }}" method="POST">
+            <form action="{{ route('clients.update', $client->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                    <label for="name">Nombre del Cliente</label>
+                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $client->name) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+                    <label for="activity">Actividad</label>
+                    <input type="text" name="activity" id="activity" class="form-control" value="{{ old('activity', $client->activity) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="role">Rol</label>
-                    <select name="role" id="role" class="form-control">
-                        @foreach($roles as $role)
-                            <option value="{{ $role->name }}" {{ $user->roles->pluck('name')->contains($role->name) ? 'selected' : '' }}>
-                                {{ $role->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label for="rut">RUT</label>
+                    <input type="text" name="rut" id="rut" class="form-control" value="{{ old('rut', $client->rut) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="is_active">Estado</label>
-                    <select name="is_active" id="is_active" class="form-control">
-                        <option value="1" {{ $user->is_active ? 'selected' : '' }}>Activo</option>
-                        <option value="0" {{ !$user->is_active ? 'selected' : '' }}>Inactivo</option>
+                    <label for="enable">Estado</label>
+                    <select name="enable" id="enable" class="form-control">
+                        <option value="1" {{ old('enable', $client->enable) == '1' ? 'selected' : '' }}>Activo</option>
+                        <option value="0" {{ old('enable', $client->enable) == '0' ? 'selected' : '' }}>Inactivo</option>
                     </select>
                 </div>
 
