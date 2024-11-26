@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InfluxdbConnectionController;
 use App\Http\Controllers\InfluxTestController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SafeLimitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('projects', ProjectController::class);
+    Route::resource('safe_limits', SafeLimitController::class);
+
 
 });
 
