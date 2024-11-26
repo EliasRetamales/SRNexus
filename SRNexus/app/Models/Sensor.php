@@ -16,7 +16,7 @@ class Sensor extends Model
      */
     protected $fillable = [
         'project_id',
-        'safe_limite_id',
+        'safe_limit_id',
         'name',
         'enable',
         'range_max',
@@ -40,7 +40,7 @@ class Sensor extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function safeLimite()
+    public function safeLimit()
     {
         return $this->belongsTo(SafeLimit::class);
     }
