@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 // Ruta de inicio
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('login');
 });
 
 // Rutas protegidas por autenticación y rol 'admin'
@@ -19,9 +20,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de autenticación y verificación de correo electrónico
 Route::middleware('auth')->group(function () {
-
-
-
     // Ruta para mostrar la notificación de verificación
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
