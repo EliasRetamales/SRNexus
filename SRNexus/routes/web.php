@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InfluxdbConnectionController;
 use App\Http\Controllers\InfluxTestController;
 use App\Http\Controllers\UserController;
@@ -16,6 +17,8 @@ Route::get('/', function () {
 // Rutas protegidas por autenticación y rol 'admin'
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::resource('clients', ClientController::class);
+
 });
 
 // Rutas de autenticación y verificación de correo electrónico
