@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         RollbackRolesAndPermissions::class,
+        Commands\CronProjects::class,
     ];
 
     protected $middlewareGroups = [
@@ -41,6 +42,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('CronProjects')->everyMinute();
     }
 
     /**
