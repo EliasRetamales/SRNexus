@@ -20,6 +20,10 @@ class Register extends Model
         'enable',
     ];
 
+    protected $casts = [
+        'measurement_time' => 'datetime',
+    ];
+
     /**
      * Relación con el modelo Alert.
      *
