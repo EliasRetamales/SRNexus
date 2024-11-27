@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SafeLimitController;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\UserController;
+use App\Models\InfluxdbConnection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('sensors', SensorController::class);
     Route::resource('registers',RegisterController::class);
     Route::resource('alerts',AlertController::class);
+    Route::resource('influxdb_connections',InfluxdbConnection::class);
 });
 
 // Rutas de autenticación y verificación de correo electrónico
