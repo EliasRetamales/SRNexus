@@ -313,94 +313,48 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text' => 'Vistas Graficas',
+            'url'  => 'projects/all',
+            'icon' => 'fas fa-fw fa-globe',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'header' => 'Datos de proyecto',
         ],
 
-        // Elementos comunes para todos los usuarios
         [
-            'text' => 'Dashboard',
-            'url'  => 'dashboard',
-            'icon' => 'fas fa-fw fa-tachometer-alt',
+            'text' => 'Proyectos',
+            'url'  => 'projects',
+            'icon' => 'fas fa-fw fa-project-diagram',
         ],
 
-        // Elemento de menú solo para administradores
+        [
+            'text' => 'Límites Seguros',
+            'url'  => 'safe_limits',
+            'icon' => 'fas fa-fw fa-shield-alt',
+        ],
+        [
+            'text' => 'Sensores',
+            'url'  => 'sensors',
+            'icon' => 'fas fa-fw fa-thermometer-half',
+        ],
+        [
+            'text' => 'Registros',
+            'url'  => 'registers',
+            'icon' => 'fas fa-fw fa-file-alt',
+        ],
+        [
+            'text' => 'Alertas',
+            'url'  => 'alerts',
+            'icon' => 'fas fa-fw fa-exclamation-triangle',
+            'role' => 'admin'
+        ],
+
+        [
+            'header' => 'Administración',
+        ],
         [
             'text' => 'Gestión de Usuarios',
             'url'  => 'users',
@@ -408,6 +362,20 @@ return [
             'role'  => 'admin', // Usar permiso o rol
 
         ],
+        [
+            'text' => 'Clientes',
+            'url'  => 'clients',
+            'icon' => 'fas fa-fw fa-user-tie',
+            'role' => 'admin'
+        ],
+        [
+            'text' => 'Conexiones Influx',
+            'url'  => 'influxdb_connections',
+            'icon' => 'fas fa-fw fa-database',
+            'role' => 'admin'
+        ],
+
+
     ],
 
     /*
