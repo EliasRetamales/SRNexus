@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlertController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InfluxdbConnectionController;
 use App\Http\Controllers\InfluxTestController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('safe_limits', SafeLimitController::class);
     Route::resource('sensors', SensorController::class);
     Route::resource('registers',RegisterController::class);
+    Route::resource('alerts',AlertController::class);
 });
 
 // Rutas de autenticación y verificación de correo electrónico
