@@ -25,9 +25,10 @@ try:
     # Bucle infinito hasta que se interrumpa con Ctrl+C
     while True:
         point = (
-            Point("Temperatura")
-            .tag("Caldera", "1")
-            .field("'°C'", round(float(temp), 2))
+            Point("Temperature")
+            .tag("location", "S21-A")
+            .tag("sensor","PT100-S21-A")
+            .field("C", round(float(temp), 2))
         )
         
         write_api.write(bucket=bucket, org=org, record=point)
