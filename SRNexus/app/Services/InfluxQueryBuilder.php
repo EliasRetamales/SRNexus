@@ -213,6 +213,17 @@ class InfluxQueryBuilder
         return $this;
     }
 
+    public function aggregateWindow(int $every, string $scale, string $fn): self
+    {
+        if (!in_array($scale, $this->durationUnits, true)) {
+            throw new InvalidArgumentException("El valor de 'scale' debe ser uno de los siguientes: " . implode(", ", $this->durationUnits));
+        }
+
+        $this->sentences[] = " |> aggregateWindow(every: {$every}{$scale}, fn: {$fn}, createEmpty: false)";
+        return $this;
+    }
+
+
     /**
      * Devuelve la consulta estructurada.
      *

@@ -15,6 +15,7 @@ class InfluxQueryService
      * @param string $start Fecha/hora de inicio.
      * @param string|null $end Fecha/hora de fin.
      * @param array $filters Filtros adicionales para la consulta.
+     * @param int $window Duración de la ventana en segundos.
      * @return array Datos obtenidos desde InfluxDB.
      * @throws Exception
      */
@@ -33,8 +34,7 @@ class InfluxQueryService
         $queryBuilder->db($connection->bucket)
             ->range($start, $end)
             ->multiFilters($filters)
-            ->window($window, 's')
-            ->mean();
+            ->aggregateWindow($window, 's', 'mean');
         $query = $queryBuilder->get();
 
         try {
@@ -42,14 +42,18 @@ class InfluxQueryService
             $queryApi = $client->createQueryApi();
             $response = $queryApi->query($query);
 
-            // Procesar y devolver los datos en formato array
-            return $this->formatResponse($response);
+            // Procesar y devolver la consulta y los datos en formato array
+            return [
+                'query' => $query, // Agregamos la consulta generada
+                'data' => $this->formatResponse($response),
+            ];
         } catch (Exception $e) {
             throw new Exception("Error al leer datos de InfluxDB: " . $e->getMessage());
         } finally {
             $client->close();
         }
     }
+
 
     /**
      * Formatea la respuesta de InfluxDB en un arreglo legible.
@@ -63,15 +67,35 @@ class InfluxQueryService
 
         foreach ($response as $table) {
             foreach ($table->records as $record) {
+                // Gestiona tags y campos según la referencia
+                $tags = [];
+                $fields = [];
+
+                foreach ($record->values as $key => $value) {
+                    if (!str_starts_with($key, '_')) {
+                        $tags[$key] = $value; // Es un tag
+                    } else {
+                        $fields[$key] = $value; // Es un campo
+                    }
+                }
+
+                // Extrae el tag 'sensor', si está disponible
+                $sensorTag = $tags['sensor'] ?? null;
+                unset($tags['sensor']); // Elimina 'sensor' de los tags generales
+
                 $data[] = [
-                    'time' => $record->getTime(),
-                    'field' => $record->getField(),
-                    'value' => $record->getValue(),
-                    'tags' => $record->getTags(),
+                    'time' => $fields['_time'] ?? null,
+                    'field' => $fields['_field'] ?? null,
+                    'value' => $fields['_value'] ?? null,
+                    'sensor' => $sensorTag,
+                    'tags' => $tags, // Otros tags, excluyendo 'sensor'
                 ];
             }
         }
 
         return $data;
     }
+
+
+
 }
