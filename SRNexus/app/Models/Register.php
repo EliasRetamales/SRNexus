@@ -18,6 +18,7 @@ class Register extends Model
         'value',
         'measurement_time',
         'enable',
+        'sensor_id',
     ];
 
     protected $casts = [
@@ -33,4 +34,10 @@ class Register extends Model
     {
         return $this->hasMany(Alert::class);
     }
+
+    public function sensor()
+    {
+        return $this->belongsTo(Sensor::class);
+    }
+
 }

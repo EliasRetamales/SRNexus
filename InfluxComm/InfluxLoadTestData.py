@@ -15,8 +15,8 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 # Parámetros del diente de sierra
 min_temp = 150  # Temperatura mínima
 max_temp = 250  # Temperatura máxima
-cycle_time = 30 * 60  # Ciclo completo en segundos (30 minutos)
-step_time = 5  # Intervalo entre mediciones en segundos
+cycle_time = 10 * 60  # Ciclo completo en segundos (30 minutos)
+step_time = 1  # Intervalo entre mediciones en segundos
 step = (max_temp - min_temp) / (cycle_time / step_time)  # Incremento por paso
 
 try:

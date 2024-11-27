@@ -41,4 +41,10 @@ class Project extends Model
     {
         return $this->hasMany(InfluxdbConnection::class);
     }
+
+    public function sensors()
+    {
+        return $this->hasMany(Sensor::class);
+    }
+
 }

@@ -54,4 +54,10 @@ class Sensor extends Model
     {
         return $this->hasMany(Alert::class);
     }
+
+    public function registers()
+    {
+        return $this->hasMany(Register::class);
+    }
+
 }

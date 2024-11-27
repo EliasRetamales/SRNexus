@@ -85,7 +85,7 @@ class CronProjects extends Command
                                 '-60s',     // Start (últimos 60 segundos)
                                 null,       // End (no especificado)
                                 [],         // Filtros adicionales (vacío por ahora)
-                                20          // Ventana de tiempo (20 segundos)
+                                5          // Ventana de tiempo (20 segundos)
                             );
 
                             // Mostrar la consulta generada
