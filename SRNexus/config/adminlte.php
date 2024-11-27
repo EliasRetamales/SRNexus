@@ -317,7 +317,7 @@ return [
         ],
         [
             'text' => 'Vistas Graficas',
-            'url'  => 'projects/all',
+            'url'  => 'allprojects/dashboard',
             'icon' => 'fas fa-fw fa-globe',
         ],
         [
