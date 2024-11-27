@@ -88,4 +88,11 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')->with('success', 'Proyecto eliminado correctamente.');
     }
+
+    public function dashboard()
+    {
+        $projects = Project::with('sensors')->get();
+        return view('projects.index_dashboard', compact('projects'));
+    }
+
 }

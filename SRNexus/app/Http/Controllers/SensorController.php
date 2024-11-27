@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sensor;
 use App\Models\Project;
+use App\Models\Register;
 use App\Models\SafeLimit;
 use Illuminate\Http\Request;
 
@@ -94,4 +95,26 @@ class SensorController extends Controller
         $sensor->delete();
         return redirect()->route('sensors.index')->with('success', 'Sensor eliminado correctamente.');
     }
+
+    public function dashboard($projectId)
+    {
+        $project = Project::with('sensors')->findOrFail($projectId);
+        return view('sensors.index_dashboard', compact('project'));
+    }
+
+    public function showChart($id)
+    {
+        $sensor = Sensor::findOrFail($id);
+
+        // Traer registros relacionados con el sensor en los últimos 5 minutos
+        $registers = Register::where('sensor_id', $sensor->id)
+            ->where('measurement_time', '>=', now()->subMinutes(5))
+            ->orderBy('measurement_time', 'asc')
+            ->get(['measurement_time', 'value']);
+
+        return view('sensors.chart', compact('sensor', 'registers'));
+    }
+
+
+
 }

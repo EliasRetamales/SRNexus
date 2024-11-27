@@ -30,6 +30,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('registers',RegisterController::class);
     Route::resource('alerts',AlertController::class);
     Route::resource('influxdb_connections',InfluxdbConnection::class);
+
+    // Ruta para el dashboard de proyectos
+    Route::get('allprojects/dashboard', [ProjectController::class, 'dashboard'])->name('projects.dashboard');
+
+    // Ruta para el dashboard de sensores de un proyecto
+    Route::get('/projects/{project}/sensors', [SensorController::class, 'dashboard'])->name('sensors.dashboard');
+
+    Route::get('/sensors/{sensor}/chart', [SensorController::class, 'showChart'])->name('sensors.chart');
+
 });
 
 // Rutas de autenticación y verificación de correo electrónico
