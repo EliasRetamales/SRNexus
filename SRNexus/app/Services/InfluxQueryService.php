@@ -88,7 +88,7 @@ class InfluxQueryService
                     'field' => $fields['_field'] ?? null,
                     'value' => $fields['_value'] ?? null,
                     'sensor' => $sensorTag,
-                    'tags' => $tags, // Otros tags, excluyendo 'sensor'
+                    'tags' => $tags,
                 ];
             }
         }
