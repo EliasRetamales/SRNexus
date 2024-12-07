@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Stadistic;
 use App\Models\Sensor;
+use App\Models\SensorType;
 use Illuminate\Http\Request;
 
 class StadisticController extends Controller
@@ -82,5 +84,19 @@ class StadisticController extends Controller
     {
         $stadistic->delete();
         return redirect()->route('stadistics.index')->with('success', 'Estadística eliminada exitosamente.');
+    }
+
+    public function dashboard($projectId)
+    {
+        $project = Project::with('sensors.sensorType')->findOrFail($projectId);
+
+        // Agrupar estadísticas por tipo de sensor
+        $sensorTypes = SensorType::with(['sensors.stadistics' => function ($query) use ($projectId) {
+            $query->whereHas('sensor', function ($sensorQuery) use ($projectId) {
+                $sensorQuery->where('project_id', $projectId);
+            });
+        }])->get()->groupBy('id');
+
+        return view('stadistics.index', compact('project', 'sensorTypes'));
     }
 }

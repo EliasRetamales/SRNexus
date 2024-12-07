@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SafeLimitController;
 use App\Http\Controllers\SensorController;
+use App\Http\Controllers\StadisticController;
 use App\Http\Controllers\UserController;
 use App\Models\InfluxdbConnection;
 use Illuminate\Support\Facades\Route;
@@ -30,15 +31,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('registers',RegisterController::class);
     Route::resource('alerts',AlertController::class);
     Route::resource('influxdb_connections',InfluxdbConnection::class);
+    Route::resource('stadistics',StadisticController::class);
 
     // Ruta para el dashboard de proyectos
     Route::get('allprojects/dashboard', [ProjectController::class, 'dashboard'])->name('projects.dashboard');
 
     // Ruta para el dashboard de sensores de un proyecto
     Route::get('/projects/{project}/sensors', [SensorController::class, 'dashboard'])->name('sensors.dashboard');
+    Route::get('/projects/{id}/sensor-types', [ProjectController::class, 'showSensorTypes'])->name('projects.sensorTypeView');
 
     Route::get('/sensors/{sensor}/chart', [SensorController::class, 'showChart'])->name('sensors.chart');
-
 });
 
 // Rutas de autenticación y verificación de correo electrónico

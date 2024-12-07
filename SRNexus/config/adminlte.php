@@ -331,6 +331,11 @@ return [
         ],
 
         [
+            'text' => 'Estadisticas',
+            'url'  => 'stadistics',
+            'icon' => 'fas fa-tag fa-project-diagram',
+        ],
+        [
             'text' => 'Límites Seguros',
             'url'  => 'safe_limits',
             'icon' => 'fas fa-fw fa-shield-alt',

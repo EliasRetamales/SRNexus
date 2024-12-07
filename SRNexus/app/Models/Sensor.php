@@ -17,6 +17,7 @@ class Sensor extends Model
     protected $fillable = [
         'project_id',
         'safe_limit_id',
+        'sensor_type_id',
         'name',
         'enable',
         'range_max',
@@ -58,6 +59,11 @@ class Sensor extends Model
     public function registers()
     {
         return $this->hasMany(Register::class);
+    }
+
+    public function sensorType()
+    {
+        return $this->belongsTo(SensorType::class);
     }
 
 }

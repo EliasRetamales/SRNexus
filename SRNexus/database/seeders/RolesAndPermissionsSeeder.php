@@ -11,7 +11,7 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         // Definir permisos para cada modelo (CRUD)
-        $models = ['Alert', 'Client', 'Project', 'Register', 'Sensor', 'SafeLimit','User'];
+        $models = ['Alert', 'Client', 'Project', 'Register', 'Sensor', 'SafeLimit','User','Stadistic'];
         // $models = ['Client', 'User'];
 
         foreach ($models as $model) {

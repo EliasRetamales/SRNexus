@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Client;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -95,4 +96,32 @@ class ProjectController extends Controller
         return view('projects.index_dashboard', compact('projects'));
     }
 
+    // public function showSensorTypes($id)
+    // {
+    //     $project = Project::with(['sensors.sensorType'])
+    //         ->where('id', $id)
+    //         ->firstOrFail();
+
+    //     $sensorTypes = $project->sensors
+    //         ->groupBy('sensor_type_id');
+
+    //     return view('projects.sensor_types', compact('project', 'sensorTypes'));
+    // }
+
+    public function showSensorTypes($id, Request $request)
+    {
+        // Obtener el rango de tiempo
+        $defaultStartTime = Carbon::now()->subMinutes(5);
+        $startTime = $request->query('start_time', $defaultStartTime->toDateTimeString());
+
+        // Obtener el proyecto y sensores agrupados por tipo
+        $project = Project::with(['sensors.sensorType', 'sensors.registers' => function ($query) use ($startTime) {
+            $query->where('measurement_time', '>=', $startTime);
+        }])->findOrFail($id);
+
+        $sensorTypes = $project->sensors
+            ->groupBy('sensor_type_id');
+
+        return view('projects.sensor_types', compact('project', 'sensorTypes', 'startTime'));
+    }
 }
